@@ -77,4 +77,5 @@ graph TD
     H -->|Ventas| K[Ver Historial de Transacciones]:::admin
     H -->|Estadísticas| L[Ver Ingresos y Unidades Vendidas]:::admin
 
+<img width="1320" height="648" alt="image" src="https://github.com/user-attachments/assets/ee7e2a18-0883-4dc0-9f93-c9c39e706c82" />
 
