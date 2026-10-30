@@ -28,5 +28,24 @@ Modo Administrador:
 Ingresa con el usuario admin y contraseña 1234.
 
 En el menú principal, navega para ver el inventario general, eliminar productos, registrar nuevos artículos mediante el formulario o consultar el historial de ventas y estadísticas globales.
+[1:19 a. m., 30/10/2026] Benja: Integrante 1: El rol del primer integrante fue realizar la arquitectura y la lógica. Diseño de las listas de datos, funciones de validación, manejo del carrito y control de sotck.
 
+Integrante 2: El rol del segundo integrante fue realizar la interfaz visual. Adaptación de la lógica a la interfaz web, diseño responsivo y estructuración de menús dinámicos.
+
+Integrante 3: Pruebas y Documentación. Verificación de reglas de validación, pruebas de flujo de usuario y redacción del reporte.
+[1:20 a. m., 30/10/2026] Benja: Organización del Equipo
+El proyecto se desarrolló mediante un flujo estructurado:
+
+Definición de Requerimientos: Mapeo de las estructuras de datos (listas de productos y ventas) y las operaciones CRUD (crear, listar, eliminar).
+
+Implementación de la Lógica: Programación de las funciones de acceso (login), validaciones de entrada y cálculos numéricos.
+
+Evolución a Interfaz Gráfica (GUI): Migración de la interacción de consola a una interfaz web limpia con botones y tarjetas visuales.
+
+Pruebas Integrales: Simulación de compras y gestión de inventario para asegurar la estabilidad del sistema.
+
+Conclusiones
+Mantener la lógica estructurada de programación (uso de listas, condiciones y funciones) facilitó enormemente la construcción del sistema, independientemente de que se haya cambiado la interfaz de consola a web.
+
+El valor agregado de implementar una interfaz gráfica (GUI) en lugar de una consola de texto eleva sustancialmente la experiencia de uso, haciendo que el sistema sea intuitivo y profesional.
 
