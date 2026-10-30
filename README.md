@@ -49,3 +49,5 @@ Mantener la lógica estructurada de programación (uso de listas, condiciones y 
 
 El valor agregado de implementar una interfaz gráfica (GUI) en lugar de una consola de texto eleva sustancialmente la experiencia de uso, haciendo que el sistema sea intuitivo y profesional.
 
+Seguridad y Reflexion
+Actualmente, nuestro sistema de acceso es bastante sencillo y las credenciales están guardadas a la vista de cualquiera dentro del mismo código. Esto significa que si alguien curioso revisa el programa, podría descubrir la clave fácilmente sin ser administrador. Para mejorarlo de forma realista, lo ideal sería conectar la aplicación a un servidor básico donde las contraseñas no queden expuestas a la vista del usuario, sino que se verifiquen de forma privada y segura antes de abrir el panel de control.
