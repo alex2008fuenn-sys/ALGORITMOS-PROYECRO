@@ -53,7 +53,8 @@ Seguridad y Reflexion
 
 Actualmente, nuestro sistema de acceso es bastante sencillo y las credenciales están guardadas a la vista de cualquiera dentro del mismo código. Esto significa que si alguien curioso revisa el programa, podría descubrir la clave fácilmente sin ser administrador. Para mejorarlo de forma realista, lo ideal sería conectar la aplicación a un servidor básico donde las contraseñas no queden expuestas a la vista del usuario, sino que se verifiquen de forma privada y segura antes de abrir el panel de control.
 
-blob:https://web.whatsapp.com/9ef50146-b722-416d-9c38-c6e55616ebea
+<img width="1320" height="657" alt="image" src="https://github.com/user-attachments/assets/15407823-49e0-4394-aa9c-b73d34e378f2" />
+
 
 <img width="1812" height="762" alt="image" src="https://github.com/user-attachments/assets/581ef4f6-e3eb-4412-a62c-a3ad822439e1" />
 
