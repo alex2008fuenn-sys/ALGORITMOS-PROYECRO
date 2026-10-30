@@ -67,3 +67,84 @@
             if (u === "admin" && p === "1234") { mostrarMenuAdmin(); } 
             else { alert("Usuario o contraseña incorrectos."); }
         }
+// ==========================================
+        // PARTE 2: LÓGICA DE CLIENTE Y CARRITO
+        // ==========================================
+        function mostrarTiendaCliente(filtro = 'Todos') {
+            let productosFiltrados = filtro === 'Todos' ? productos : productos.filter(p => p.deporte === filtro);
+            let totalItemsCarrito = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+
+            let html = `
+                <div class="bg-white/95 backdrop-blur-md w-full max-w-6xl p-6 rounded-2xl shadow-2xl flex flex-col h-[85vh]">
+                    <div class="flex justify-between items-center pb-4 border-b mb-4">
+                        <h2 class="text-2xl font-black text-slate-800">🛒 Catálogo de Productos</h2>
+                        <div class="flex gap-3">
+                            <button onclick="mostrarCarrito()" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-xl font-bold shadow">🛍️ Carrito (${totalItemsCarrito})</button>
+                            <button onclick="mostrarInicio()" class="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded-xl font-bold shadow">Salir</button>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 mb-4">
+                        <button onclick="mostrarTiendaCliente('Todos')" class="px-4 py-2 rounded-lg font-semibold ${filtro==='Todos'?'bg-slate-800 text-white':'bg-gray-200 text-slate-700'}">Todos</button>
+                        <button onclick="mostrarTiendaCliente('Fútbol')" class="px-4 py-2 rounded-lg font-semibold ${filtro==='Fútbol'?'bg-slate-800 text-white':'bg-gray-200 text-slate-700'}">⚽ Fútbol</button>
+                        <button onclick="mostrarTiendaCliente('Básquetbol')" class="px-4 py-2 rounded-lg font-semibold ${filtro==='Básquetbol'?'bg-slate-800 text-white':'bg-gray-200 text-slate-700'}">🏀 Básquetbol</button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 overflow-y-auto p-2 flex-grow">
+            `;
+
+            productosFiltrados.forEach(p => {
+                html += `
+                    <div class="bg-white border rounded-2xl p-4 shadow hover:shadow-lg transition flex flex-col justify-between relative">
+                        <span class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 font-bold rounded-full">OFERTA</span>
+                        <img src="${p.imagen}" alt="${p.nombre}" class="w-full h-40 object-cover rounded-xl mb-3">
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800">${p.nombre}</h3>
+                            <p class="text-xs text-slate-500 mb-2">${p.deporte} • ${p.categoria}</p>
+                            <p class="text-xl font-black text-teal-600">Q${p.precio.toFixed(2)}</p>
+                            <p class="text-xs text-slate-600 mb-4">Disponibles: ${p.stock}</p>
+                        </div>
+                        <button onclick="agregarAlCarrito('${p.codigo}')" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 rounded-xl shadow">🛒 Añadir al carrito</button>
+                    </div>
+                `;
+            });
+
+            html += `</div></div>`;
+            document.getElementById('app').innerHTML = html;
+        }
+
+        function agregarAlCarrito(codigo) {
+            let prod = productos.find(p => p.codigo === codigo);
+            let enCarrito = carrito.find(item => item.producto.codigo === codigo);
+            let cantidadActual = enCarrito ? enCarrito.cantidad : 0;
+            if (cantidadActual + 1 > prod.stock) { alert("No hay suficiente stock disponible."); return; }
+            if (enCarrito) { enCarrito.cantidad++; } else { carrito.push({ producto: prod, cantidad: 1 }); }
+            alert(`¡${prod.nombre} agregado al carrito!`);
+            mostrarTiendaCliente();
+        }
+
+        function mostrarCarrito() {
+            let total = carrito.reduce((sum, item) => sum + (item.producto.precio * item.cantidad), 0);
+            let html = `<div class="bg-white/95 backdrop-blur-md w-full max-w-3xl p-6 rounded-2xl shadow-2xl flex flex-col"><h2 class="text-2xl font-black text-slate-800 mb-4">🛍️ Tu Carrito de Compras</h2>`;
+            if (carrito.length === 0) {
+                html += `<p class="text-slate-500 my-8 text-center">El carrito está vacío.</p>`;
+            } else {
+                html += `<div class="space-y-4 max-h-60 overflow-y-auto mb-4">`;
+                carrito.forEach((item, index) => {
+                    html += `<div class="flex justify-between items-center border-b pb-2"><div><h4 class="font-bold text-slate-800">${item.producto.nombre}</h4><p class="text-sm text-slate-500">Q${item.producto.precio.toFixed(2)} x ${item.cantidad}</p></div><div class="flex items-center gap-4"><span class="font-bold text-teal-600">Q${(item.producto.precio * item.cantidad).toFixed(2)}</span><button onclick="quitarDelCarrito(${index})" class="text-red-500 font-bold hover:underline">Eliminar</button></div></div>`;
+                });
+                html += `</div><div class="text-xl font-black text-right mb-6 text-slate-800">Total: Q${total.toFixed(2)}</div><button onclick="finalizarCompra()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-xl shadow mb-2">✅ Finalizar Compra</button>`;
+            }
+            html += `<button onclick="mostrarTiendaCliente()" class="w-full bg-gray-300 hover:bg-gray-400 text-slate-800 font-bold py-2 rounded-xl">Seguir Comprando</button></div>`;
+            document.getElementById('app').innerHTML = html;
+        }
+
+        function quitarDelCarrito(index) { carrito.splice(index, 1); mostrarCarrito(); }
+
+        function finalizarCompra() {
+            carrito.forEach(item => {
+                item.producto.stock -= item.cantidad;
+                ventas.push({ codigo: item.producto.codigo, nombre: item.producto.nombre, cantidad: item.cantidad, total: item.producto.precio * item.cantidad });
+            });
+            carrito = [];
+            alert("¡Compra realizada con éxito! Registrada en el sistema.");
+            mostrarTiendaCliente();
+        }
