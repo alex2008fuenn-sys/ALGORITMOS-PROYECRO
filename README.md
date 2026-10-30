@@ -55,21 +55,25 @@ Actualmente, nuestro sistema de acceso es bastante sencillo y las credenciales e
 
 ```mermaid
 graph TD
-    classDef inicio fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef cliente fill:#bbf,stroke:#333,stroke-width:2px;
-    classDef admin fill:#bfb,stroke:#333,stroke-width:2px;
+    %% Estilos de colores legibles y profesionales
+    classDef inicio fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#ffffff;
+    classDef cliente fill:#0f172a,stroke:#06b6d4,stroke-width:2px,color:#ffffff;
+    classDef admin fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#ffffff;
 
     A([Inicio: SPORTZONE]) --> B{Seleccionar Modo}:::inicio
     
+    %% Flujo Cliente
     B -->|Cliente| C[Ver Catálogo y Filtrar por Deporte]:::cliente
     C --> D[Añadir Productos al Carrito]:::cliente
     D --> E{¿Finalizar Compra?}:::cliente
     E -->|Sí| F[Actualizar Stock y Registrar Venta]:::cliente
     E -->|No| C
     
+    %% Flujo Administrador
     B -->|Administrador| G[Iniciar Sesión: admin / 1234]:::admin
     G --> H{Menú de Administración}:::admin
     H -->|Inventario| I[Ver o Eliminar Productos]:::admin
     H -->|Agregar| J[Registrar Nuevo Producto]:::admin
     H -->|Ventas| K[Ver Historial de Transacciones]:::admin
     H -->|Estadísticas| L[Ver Ingresos y Unidades Vendidas]:::admin
+
