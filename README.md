@@ -76,6 +76,5 @@ graph TD
     H -->|Agregar| J[Registrar Nuevo Producto]:::admin
     H -->|Ventas| K[Ver Historial de Transacciones]:::admin
     H -->|Estadísticas| L[Ver Ingresos y Unidades Vendidas]:::admin
-<img width="1320" height="648" alt="image" src="https://github.com/user-attachments/assets/56cdc738-40ea-46ce-a922-14b02073ee2d" />
-![Uploading image.png…]()
+
 
