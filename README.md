@@ -28,3 +28,7 @@ Modo Administrador:
 Ingresa con el usuario admin y contraseña 1234.
 
 En el menú principal, navega para ver el inventario general, eliminar productos, registrar nuevos artículos mediante el formulario o consultar el historial de ventas y estadísticas globales.
+
+Seguridad y Reflexion
+
+Actualmente, nuestro sistema de acceso es bastante sencillo y las credenciales están guardadas a la vista de cualquiera dentro del mismo código. Esto significa que si alguien curioso revisa el programa, podría descubrir la clave fácilmente sin ser administrador. Para mejorarlo de forma realista, lo ideal sería conectar la aplicación a un servidor básico donde las contraseñas no queden expuestas a la vista del usuario, sino que se verifiquen de forma privada y segura antes de abrir el panel de control.
