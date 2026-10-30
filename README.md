@@ -58,6 +58,10 @@ Actualmente, nuestro sistema de acceso es bastante sencillo y las credenciales e
 
 <img width="1812" height="762" alt="image" src="https://github.com/user-attachments/assets/581ef4f6-e3eb-4412-a62c-a3ad822439e1" />
 
+
+<img width="1600" height="792" alt="image" src="https://github.com/user-attachments/assets/edec8326-06de-4ea6-87e8-4d9d88b7775d" />
+
+
 ```mermaid
 graph TD
     %% Estilos de colores legibles y profesionales
