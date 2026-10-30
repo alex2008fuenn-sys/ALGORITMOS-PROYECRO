@@ -53,30 +53,7 @@ Seguridad y Reflexion
 
 Actualmente, nuestro sistema de acceso es bastante sencillo y las credenciales están guardadas a la vista de cualquiera dentro del mismo código. Esto significa que si alguien curioso revisa el programa, podría descubrir la clave fácilmente sin ser administrador. Para mejorarlo de forma realista, lo ideal sería conectar la aplicación a un servidor básico donde las contraseñas no queden expuestas a la vista del usuario, sino que se verifiquen de forma privada y segura antes de abrir el panel de control.
 
-```mermaid
-graph TD;
-    %% Estilos de colores opcionales
-    classDef inicio fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef cliente fill:#bbf,stroke:#333,stroke-width:2px;
-    classDef admin fill:#bfb,stroke:#333,stroke-width:2px;
 
-    %% Estructura del flujo
-    A([Inicio: SPORTZONE]) --> B{Seleccionar Modo}:::inicio
-    
-    %% Flujo Cliente
-    B -->|Cliente| C[Ver Catálogo y Filtrar por Deporte]:::cliente
-    C --> D[Añadir Productos al Carrito]:::cliente
-    D --> E{¿Finalizar Compra?}:::cliente
-    E -->|Sí| F[Actualizar Stock y Registrar Venta]:::cliente
-    E -->|No| C
-    
-    %% Flujo Administrador
-    B -->|Administrador| G[Iniciar Sesión: admin / 1234]:::admin
-    G --> H{Menú de Administración}:::admin
-    H -->|Inventario| I[Ver o Eliminar Productos]:::admin
-    H -->|Agregar| J[Registrar Nuevo Producto]:::admin
-    H -->|Ventas| K[Ver Historial de Transacciones]:::admin
-    H -->|Estadísticas| L[Ver Ingresos y Unidades Vendidas]:::admin
 
 <img width="1812" height="762" alt="image" src="https://github.com/user-attachments/assets/581ef4f6-e3eb-4412-a62c-a3ad822439e1" />
 
