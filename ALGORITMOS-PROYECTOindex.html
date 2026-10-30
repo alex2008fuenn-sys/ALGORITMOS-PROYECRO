@@ -148,3 +148,102 @@
             alert("¡Compra realizada con éxito! Registrada en el sistema.");
             mostrarTiendaCliente();
         }
+// ==========================================
+        // PARTE 3: PANEL ADMINISTRADOR Y ESTADÍSTICAS
+        // ==========================================
+        function mostrarMenuAdmin() {
+            document.getElementById('app').innerHTML = `
+                <div class="bg-white/95 backdrop-blur-md w-full max-w-4xl p-6 rounded-2xl shadow-2xl">
+                    <div class="flex justify-between items-center pb-4 border-b mb-6">
+                        <h2 class="text-2xl font-black text-slate-800">⚙️ Panel de Administrador</h2>
+                        <button onclick="mostrarInicio()" class="bg-rose-500 text-white px-4 py-2 rounded-xl font-bold shadow">Cerrar Sesión</button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button onclick="verInventarioAdmin()" class="bg-slate-800 hover:bg-slate-900 text-white p-4 rounded-xl font-bold shadow">📦 Ver Inventario General</button>
+                        <button onclick="formAgregarProducto()" class="bg-teal-600 hover:bg-teal-700 text-white p-4 rounded-xl font-bold shadow">➕ Agregar Producto Nuevo</button>
+                        <button onclick="verHistorialVentas()" class="bg-indigo-600 hover:bg-indigo-700 text-white p-4 rounded-xl font-bold shadow">📋 Historial de Ventas</button>
+                        <button onclick="verEstadisticas()" class="bg-amber-600 hover:bg-amber-700 text-white p-4 rounded-xl font-bold shadow">📊 Estadísticas del Sistema</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function verInventarioAdmin() {
+            let html = `<div class="bg-white/95 backdrop-blur-md w-full max-w-4xl p-6 rounded-2xl shadow-2xl max-h-[85vh] flex flex-col"><h2 class="text-2xl font-black text-slate-800 mb-4">📦 Inventario General</h2><div class="overflow-y-auto flex-grow mb-4"><table class="w-full text-left border-collapse"><thead><tr class="border-b bg-slate-100"><th class="p-3">Código</th><th class="p-3">Nombre</th><th class="p-3">Precio</th><th class="p-3">Stock</th><th class="p-3">Acción</th></tr></thead><tbody>`;
+            productos.forEach(p => {
+                html += `<tr class="border-b"><td class="p-3">${p.codigo}</td><td class="p-3 font-semibold">${p.nombre}</td><td class="p-3">Q${p.precio.toFixed(2)}</td><td class="p-3">${p.stock}</td><td class="p-3"><button onclick="eliminarProducto('${p.codigo}')" class="text-red-500 font-bold hover:underline">Eliminar</button></td></tr>`;
+            });
+            html += `</tbody></table></div><button onclick="mostrarMenuAdmin()" class="bg-slate-800 text-white py-2 px-4 rounded-xl font-bold">Volver al Menú</button></div>`;
+            document.getElementById('app').innerHTML = html;
+        }
+
+        function eliminarProducto(codigo) {
+            productos = productos.filter(p => p.codigo !== codigo);
+            alert("Producto eliminado.");
+            verInventarioAdmin();
+        }
+
+        function formAgregarProducto() {
+            document.getElementById('app').innerHTML = `
+                <div class="bg-white/95 backdrop-blur-md w-full max-w-md p-6 rounded-2xl shadow-2xl">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">➕ Agregar Producto</h2>
+                    <input type="text" id="pCod" placeholder="Código (ej. F004)" class="w-full p-2 border rounded-xl mb-3">
+                    <input type="text" id="pNom" placeholder="Nombre" class="w-full p-2 border rounded-xl mb-3">
+                    <input type="text" id="pDep" placeholder="Deporte (Fútbol / Básquetbol)" class="w-full p-2 border rounded-xl mb-3">
+                    <input type="text" id="pCat" placeholder="Categoría (Calzado, Balones...)" class="w-full p-2 border rounded-xl mb-3">
+                    <input type="number" id="pPre" placeholder="Precio en Q" class="w-full p-2 border rounded-xl mb-3">
+                    <input type="number" id="pStk" placeholder="Stock inicial" class="w-full p-2 border rounded-xl mb-3">
+                    <input type="text" id="pImg" placeholder="URL de la imagen" class="w-full p-2 border rounded-xl mb-4">
+                    <button onclick="guardarNuevoProducto()" class="w-full bg-teal-600 text-white font-bold py-2 rounded-xl mb-2">Guardar</button>
+                    <button onclick="mostrarMenuAdmin()" class="w-full bg-gray-300 text-slate-800 font-bold py-2 rounded-xl">Volver</button>
+                </div>
+            `;
+        }
+
+        function guardarNuevoProducto() {
+            let codigo = document.getElementById('pCod').value.trim().toUpperCase();
+            let nombre = document.getElementById('pNom').value.trim();
+            let deporte = document.getElementById('pDep').value.trim();
+            let categoria = document.getElementById('pCat').value.trim();
+            let precio = parseFloat(document.getElementById('pPre').value);
+            let stock = parseInt(document.getElementById('pStk').value);
+            let imagen = document.getElementById('pImg').value.trim() || "https://images.unsplash.com/photo-1511886929837-354d827aae26?w=300";
+            if (!codigo || !nombre || isNaN(precio) || isNaN(stock)) { alert("Por favor completa los campos correctamente."); return; }
+            productos.push({ codigo, nombre, deporte, categoria, precio, stock, imagen });
+            alert("¡Producto agregado exitosamente!");
+            mostrarMenuAdmin();
+        }
+
+        function verHistorialVentas() {
+            let html = `<div class="bg-white/95 backdrop-blur-md w-full max-w-3xl p-6 rounded-2xl shadow-2xl max-h-[85vh] flex flex-col"><h2 class="text-2xl font-black text-slate-800 mb-4">📋 Historial de Ventas</h2>`;
+            if (ventas.length === 0) {
+                html += `<p class="text-slate-500 my-8 text-center">No hay ventas registradas.</p>`;
+            } else {
+                html += `<div class="overflow-y-auto flex-grow mb-4"><table class="w-full text-left"><tr class="border-b bg-slate-100"><th class="p-2">Código</th><th class="p-2">Producto</th><th class="p-2">Cantidad</th><th class="p-2">Total</th></tr>`;
+                ventas.forEach(v => { html += `<tr class="border-b"><td class="p-2">${v.codigo}</td><td class="p-2">${v.nombre}</td><td class="p-2">${v.cantidad}</td><td class="p-2 font-bold text-teal-600">Q${v.total.toFixed(2)}</td></tr>`; });
+                html += `</table></div>`;
+            }
+            html += `<button onclick="mostrarMenuAdmin()" class="bg-slate-800 text-white py-2 px-4 rounded-xl font-bold">Volver</button></div>`;
+            document.getElementById('app').innerHTML = html;
+        }
+
+        function verEstadisticas() {
+            let ingresosTotal = ventas.reduce((sum, v) => sum + v.total, 0);
+            let unidadesTotal = ventas.reduce((sum, v) => sum + v.cantidad, 0);
+            document.getElementById('app').innerHTML = `
+                <div class="bg-white/95 backdrop-blur-md w-full max-w-md p-6 rounded-2xl shadow-2xl">
+                    <h2 class="text-2xl font-black text-slate-800 mb-4">📊 Estadísticas</h2>
+                    <p class="text-slate-700 mb-2">• Productos en catálogo: <strong>${productos.length}</strong></p>
+                    <p class="text-slate-700 mb-2">• Transacciones realizadas: <strong>${ventas.length}</strong></p>
+                    <p class="text-slate-700 mb-2">• Unidades vendidas: <strong>${unidadesTotal}</strong></p>
+                    <p class="text-slate-700 mb-6 text-lg font-bold text-teal-600">• Ingresos Totales: Q${ingresosTotal.toFixed(2)}</p>
+                    <button onclick="mostrarMenuAdmin()" class="w-full bg-slate-800 text-white font-bold py-2 rounded-xl">Volver</button>
+                </div>
+            `;
+        }
+
+        // Iniciar aplicación
+        mostrarInicio();
+    </script>
+</body>
+</html>
