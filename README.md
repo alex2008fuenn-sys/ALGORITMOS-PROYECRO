@@ -52,6 +52,7 @@ El valor agregado de implementar una interfaz gráfica (GUI) en lugar de una con
 Seguridad y Reflexion
 
 Actualmente, nuestro sistema de acceso es bastante sencillo y las credenciales están guardadas a la vista de cualquiera dentro del mismo código. Esto significa que si alguien curioso revisa el programa, podría descubrir la clave fácilmente sin ser administrador. Para mejorarlo de forma realista, lo ideal sería conectar la aplicación a un servidor básico donde las contraseñas no queden expuestas a la vista del usuario, sino que se verifiquen de forma privada y segura antes de abrir el panel de control.
+
 ```mermaid
 graph TD;
     %% Estilos de colores opcionales
@@ -76,5 +77,6 @@ graph TD;
     H -->|Agregar| J[Registrar Nuevo Producto]:::admin
     H -->|Ventas| K[Ver Historial de Transacciones]:::admin
     H -->|Estadísticas| L[Ver Ingresos y Unidades Vendidas]:::admin
+
 <img width="1812" height="762" alt="image" src="https://github.com/user-attachments/assets/581ef4f6-e3eb-4412-a62c-a3ad822439e1" />
 
